@@ -1,8 +1,7 @@
-package com.kingland.demo;
+package com.kingland.dhrm2193;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * DemoApplication

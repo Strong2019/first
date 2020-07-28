@@ -1,7 +1,7 @@
-package com.kingland.demo.controller;
+package com.kingland.dhrm2193.controller;
 
-import com.kingland.demo.bean.User;
-import com.kingland.demo.service.UserService;
+import com.kingland.dhrm2193.bean.User;
+import com.kingland.dhrm2193.service.UserService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

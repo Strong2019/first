@@ -1,8 +1,8 @@
-package com.kingland.demo.service;
+package com.kingland.dhrm2193.service;
 
-import com.kingland.demo.bean.User;
-import com.kingland.demo.mapper.UserMapper;
-import com.kingland.demo.utils.Utils;
+import com.kingland.dhrm2193.bean.User;
+import com.kingland.dhrm2193.mapper.UserMapper;
+import com.kingland.dhrm2193.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

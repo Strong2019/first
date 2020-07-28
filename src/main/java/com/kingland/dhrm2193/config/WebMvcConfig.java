@@ -1,4 +1,4 @@
-package com.kingland.demo.config;
+package com.kingland.dhrm2193.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

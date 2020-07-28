@@ -1,4 +1,4 @@
-package com.kingland.demo.bean;
+package com.kingland.dhrm2193.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

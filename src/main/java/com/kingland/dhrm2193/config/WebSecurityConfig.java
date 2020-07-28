@@ -1,4 +1,4 @@
-package com.kingland.demo.config;
+package com.kingland.dhrm2193.config;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

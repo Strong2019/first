@@ -1,4 +1,4 @@
-package com.kingland.demo.enums;
+package com.kingland.dhrm2193.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

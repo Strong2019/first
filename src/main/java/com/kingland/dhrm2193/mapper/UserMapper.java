@@ -1,6 +1,6 @@
-package com.kingland.demo.mapper;
+package com.kingland.dhrm2193.mapper;
 
-import com.kingland.demo.bean.User;
+import com.kingland.dhrm2193.bean.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

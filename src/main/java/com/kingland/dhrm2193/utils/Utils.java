@@ -1,7 +1,7 @@
-package com.kingland.demo.utils;
+package com.kingland.dhrm2193.utils;
 
-import com.kingland.demo.bean.User;
-import com.kingland.demo.enums.Role;
+import com.kingland.dhrm2193.bean.User;
+import com.kingland.dhrm2193.enums.Role;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
