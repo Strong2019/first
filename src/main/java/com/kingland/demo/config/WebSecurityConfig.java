@@ -9,78 +9,78 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * WebSecurityConfig安全配置
+ * WebSecurityConfig
  *
  * @author Rooney
  */
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
-     * 用户信息Service
+     * user info Service
      */
     private final UserDetailsService userService;
 
     /**
-     * 通过构造方法注入
+     * Injection by construction method
      *
-     * @param userService 用户Service
+     * @param userService user Service
      */
     public WebSecurityConfig(UserDetailsService userService) {
         this.userService = userService;
     }
 
     /**
-     * 重写配置，过滤静态资源
+     * Rewrite configuration and filter static resources
      *
-     * @param webSecurity web安全
-     * @throws Exception 异常
+     * @param webSecurity web security
      */
     @Override
-    public void configure(WebSecurity webSecurity) throws Exception {
-        // 允许访问 /css 目录下的所有文件
+    public void configure(WebSecurity webSecurity) {
+        // Allow access to all files in the /css directory
         webSecurity.ignoring().antMatchers("/favicon.ico", "/resources/**", "/error")
                 .antMatchers("/public/css/**")
                 .antMatchers("/public/**");
     }
 
     /**
-     * 安全策略配置
+     * Security policy configuration
      *
-     * @param httpSecurity http安全
-     * @throws Exception 异常
+     * @param httpSecurity http security
+     * @throws Exception exception
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
-                // 对于网站部分资源需要指定鉴权
-                .antMatchers("/regist").permitAll()
+                // Some resources of the website need to be authenticated
+                .antMatchers("/register").permitAll()
                 .antMatchers("/css/**").permitAll()
+                // Only admin permission users are allowed to access the admin page
                 .antMatchers("/admin").hasRole("ADMIN")
-                // 除上面外的所有请求全部需要鉴权认证
+                // All requests except the above require authentication
                 .anyRequest().authenticated().and()
-                // 定义当需要用户登录时候，转到的登录页面 .loginPage("/login")
+                // Define the login page to go to when a user needs to log in
                 .formLogin().loginPage("/login").defaultSuccessUrl("/index").permitAll().and()
-                // 定义登出操作
+                // Defining logout operations
                 .logout().logoutSuccessUrl("/login").permitAll().and()
-                // 禁用csrf，否则可能会导致一些错误
+                // Disable CSRF, otherwise it may cause some errors
                 .csrf().disable()
         ;
-        // 禁用缓存
+        // Disable cache
         httpSecurity.headers().cacheControl();
     }
 
 
 
     /**
-     * 配置安全认证
+     * configure security authentication
      *
-     * @param auth 认证
-     * @throws Exception 异常
+     * @param auth authentication
+     * @throws Exception exception
      */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // 使用数据库 用户信息服务 密码认证 使用BCrypt加密
+        // Authentication through database
         auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
     }
 }

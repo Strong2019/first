@@ -3,21 +3,28 @@ package com.kingland.demo.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * Role enum
+ *
+ * @author Rooney
+ * @date 2020.07.23
+ */
+
 @AllArgsConstructor
 @Getter
 public enum Role {
     /**
-     * ADMIN权限
+     * ADMIN permission
      */
     ADMIN("ADMIN"),
 
     /**
-     * COMMON权限
+     * COMMON permission
      */
     COMMON("COMMON");
 
     /**
-     * 用户权限
+     * user role
      */
-    private String role;
+    private final String role;
 }

@@ -4,64 +4,64 @@ import com.kingland.demo.bean.User;
 import com.kingland.demo.service.UserService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * PageController
+ * UserController
  *
  * @author Rooney
  * @version 1.0
- * @date 2020/7/27 上午9:35
+ * @date 2020/7/27 9:35 AM
  * @description
  */
 @Controller
-public class PageController {
+public class UserController {
     /**
-     * 用户Service
+     * user Service
      */
     final UserService userService;
 
     /**
-     * 通过构造方法注入
+     * Injection by construction method
      *
-     * @param userService 用户Service
+     * @param userService user Service
      */
-    public PageController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     /**
-     * 注册页面
+     * register page
      *
-     * @return 视图
+     * the return value type is string, the corresponding view will be returned
+     * @return view
      */
-    @GetMapping("/regist")
-    public String regist() {
-        return "regist";
+    @GetMapping("/register")
+    public String register() {
+        return "register";
     }
 
     /**
-     * 注册功能
+     * register function
      *
-     * @param username 用户名
-     * @param password 密码
-     * @return 视图
-     * @throws Exception 异常
+     * @param username user name
+     * @param password password
+     * @return view
+     * @throws UsernameNotFoundException user name not found exception
      */
-    @PostMapping("/regist")
+    @PostMapping("/register")
     public String regist(@RequestParam String username, @RequestParam String password) throws UsernameNotFoundException {
-        // 创建user对象
+        // create a user object
         User user = new User();
-        // 设置用户名
+        // set user name
         user.setUsername(username);
-        // 设置密码
+        // set password
         user.setPassword(password);
-        // 调用用户Service的注册方法
-        userService.regist(user);
-        // 重定向到login
+        // Call the register method of user service
+        userService.register(user);
+        // redirect to login page
         return "redirect:login";
     }
 }

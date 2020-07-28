@@ -1,6 +1,6 @@
 
 -- ----------------------------
--- Table structure for s_user
+-- Table structure for user_info
 -- ----------------------------
 DROP TABLE IF EXISTS user_info;
 CREATE TABLE user_info (
@@ -12,7 +12,7 @@ CREATE TABLE user_info (
 );
 
 -- ----------------------------
--- Records of s_user
+-- Records of user_info
 -- ----------------------------
 INSERT INTO user_info VALUES ('1', 'admin', '$2a$10$V5iwRgfXKN10XuAuR4lng.uFCQMFmsPu00wa7.YN.9JQJdGH9LAeW', 'ADMIN COMMON', 'Admin user，all powers');
 INSERT INTO user_info VALUES ('2', 'user', '$2a$10$CU7Qh78LMsv5cjZ8dvaxC.47fjlWYIWldl2NKlf.ddIIFFSKd0vqu', 'COMMON', 'Common user, the power of visiting home page');

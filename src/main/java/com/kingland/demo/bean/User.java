@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * User实体类
+ * User Entity
  *
  * @author Rooney
  * @date 2020.07.23
@@ -15,25 +15,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User {
     /**
-     * 用户id
+     * user id
      */
     private int id;
     /**
-     * 用户名
+     * user name
      */
     private String username;
     /**
-     * 密码
+     * password
      */
     private String password;
 
     /**
-     * 角色
+     * role
      */
     private String role;
 
     /**
-     * 描述
+     * describe
      */
     private String describe;
 }
