@@ -1,24 +1,27 @@
-package com.kingland.dhrm2193.config;
+/*
+ * Copyright 2020 Kingland Systems Corporation. All Rights Reserved.
+ */
+package com.kingland.intern.config;
 
+import com.kingland.intern.common.Common;
+import com.kingland.intern.utils.MyPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * WebSecurityConfig
- *
- * @author Rooney
+ * @author KSC
+ * @description web security configuration.
  */
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * user info Service
      */
-    private final UserDetailsService userService;
+    private UserDetailsService userService;
 
     /**
      * Injection by construction method
@@ -39,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Allow access to all files in the /css directory
         webSecurity.ignoring().antMatchers("/favicon.ico", "/resources/**", "/error")
                 .antMatchers("/public/css/**")
-                .antMatchers("/public/**");
+                .antMatchers("/*.html");
     }
 
     /**
@@ -53,17 +56,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .authorizeRequests()
                 // Some resources of the website need to be authenticated
+                .antMatchers("/register.html").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/css/**").permitAll()
+                .antMatchers("*").permitAll()
                 // Only admin permission users are allowed to access the admin page
                 .antMatchers("/admin").hasRole("ADMIN")
                 // All requests except the above require authentication
                 .anyRequest().authenticated().and()
                 // Define the login page to go to when a user needs to log in
-                .formLogin().loginPage("/login").defaultSuccessUrl("/index").permitAll().and()
+                .formLogin().loginPage("/login").defaultSuccessUrl("/index.html").permitAll().and()
                 // Defining logout operations
                 .logout().logoutSuccessUrl("/login").permitAll().and()
-                // Disable CSRF, otherwise it may cause some errors
+                // Disable CSRF, make post request can be accessed. otherwise it may cause some errors
                 .csrf().disable()
         ;
         // Disable cache
@@ -81,6 +87,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         // Authentication through database
-        auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(new MyPasswordEncoder(Common.SALT));
     }
 }

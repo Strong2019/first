@@ -1,11 +1,11 @@
 server:
   port: 8080
   application:
-    name: dhrm2193
+    name: intern
 
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/testdb
+    url: jdbc:postgresql://127.0.0.1:5432/intern
     username: postgres
     password: root
 
@@ -30,5 +30,19 @@ spring:
 # log configuration
 logging:
   level:
-    com.ruoyi: debug
+    com.kingland: debug
     org.springframework: warn
+
+gen:
+  # author
+  author: KSC
+  # default generate package name
+  packageName: com.kingland.dhrm2193
+  # auto remove table prefix
+  autoRemovePre: true
+  # table prefix
+  tablePrefix: t_
+
+mybatis:
+  type-aliases-package: com.kingland.dhrm2193.domain
+  mapper-locations: classpath:mybatis/*Mapper.xml

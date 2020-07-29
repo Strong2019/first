@@ -1,40 +1,37 @@
-package com.kingland.dhrm2193.service;
+/*
+ * Copyright 2020 Kingland Systems Corporation. All Rights Reserved.
+ */
+package com.kingland.intern.service;
 
-import com.kingland.dhrm2193.bean.User;
-import com.kingland.dhrm2193.mapper.UserMapper;
-import com.kingland.dhrm2193.utils.Utils;
+import com.kingland.intern.common.Common;
+import com.kingland.intern.common.exception.user.UnknownException;
+import com.kingland.intern.common.exception.user.UserDoesExistsException;
+import com.kingland.intern.domain.User;
+import com.kingland.intern.mapper.UserMapper;
+import com.kingland.intern.utils.MyPasswordEncoder;
+import com.kingland.intern.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * UserService
- *
- * @author Rooney
- * @version 1.0
- * @date 2020/7/24 7:51 AM
- * @description
+ * @author KSC
+ * @description This class is business logic code.
  */
 @Service
 @Slf4j
 public class UserService implements UserDetailsService {
 
     /**
-     * string constant，space
-     */
-    public static final String SPACE = " ";
-
-    /**
      * user Mapper
      */
-    final UserMapper userMapper;
+    private UserMapper userMapper;
 
     /**
      * injection by construction method
@@ -53,24 +50,18 @@ public class UserService implements UserDetailsService {
      * @throws UsernameNotFoundException user name not found exception
      */
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // log
-        log.info("****** service, username : " + username);
-        // if username is null, throw usernameNotFoundException
-        Utils.isNull(username, "Please input username！");
+    public UserDetails loadUserByUsername(String username) {
         // list is used to save permissions
         List<SimpleGrantedAuthority> list = new ArrayList<>();
         // query user info by username
         User user = userMapper.queryUserByName(username);
         // if user is null, throw usernameNotFoundException
-        Utils.isNull(user, "username does not exist!");
+        Utils.isNull(user);
         // Traverse add permission
-        for (String s : user.getRole().split(SPACE)) {
+        for (String s : user.getRole().split(Common.SPACE)) {
             // add permission to list
             list.add(new SimpleGrantedAuthority("ROLE_" + s));
         }
-        // log
-        log.info("****** service, role : " + list);
         // Return the user object with permission information
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), list);
     }
@@ -79,28 +70,22 @@ public class UserService implements UserDetailsService {
      * user register
      *
      * @param user user
-     * @throws UsernameNotFoundException username not found exception
      */
-    public void register(User user) throws UsernameNotFoundException {
-        // if username is null, throw UsernameNotFoundException
-        Utils.isNull(user.getUsername(), "Please input username！");
-        // if password is null, throw UsernameNotFoundException
-        Utils.isNull(user.getPassword(), "Please input password！");
+    public void register(User user) {
         // Query whether there is a user with the same name in the database
         User temp = userMapper.queryUserByName(user.getUsername());
         // If the user name is already occupied
         if (null != temp) {
-            throw new UsernameNotFoundException("username already exists!");
+            throw new UserDoesExistsException();
         }
-        // use BCrypt to strengthen password
-        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        MyPasswordEncoder myPasswordEncoder = new MyPasswordEncoder(Common.SALT);
+        // use myPasswordEncoder to strengthen password
+        user.setPassword(myPasswordEncoder.encodePurePassword(user.getPassword()));
         // set the basic field for user register
         Utils.setUser(user);
-        // log
-        log.info("****** service, user regist : " + user);
         // If the insertion of the database fails, throw exception
         if (userMapper.addUser(user) != 1) {
-            throw new UsernameNotFoundException("Failed to insert user！");
+            throw new UnknownException();
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.kingland.dhrm2193;
+package com.kingland.intern;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
