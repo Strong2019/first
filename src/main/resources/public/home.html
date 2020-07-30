@@ -11,7 +11,8 @@
         html {
             height: 100%;
         }
-        html,body {
+
+        html, body {
             height: 100%;
             width: 100%;
             background-color: #1fc8db;
@@ -31,7 +32,8 @@
 <a th:href="@{/index}"> INDEX</a>
 <a th:href="@{/admin}"> | ADMIN</a>
 <a th:href="@{/hello}"> | HELLO</a>
-<br/><hr/>
+<br/>
+<hr/>
 <form th:action="@{/logout}" method="post">
     <input type="submit" class="btn btn-primary" value="logout"/>
 </form>

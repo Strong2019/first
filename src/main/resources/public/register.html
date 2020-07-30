@@ -12,6 +12,7 @@
         html {
             height: 100%;
         }
+
         body {
             height: 150px;
             width: 100%;
@@ -22,18 +23,22 @@
             margin: auto;
             color: #f3f3f3;
         }
+
         .head {
             width: 80%;
             margin: 0 auto;
         }
+
         .titile {
             font-size: 64px;
             line-height: 250px;
         }
+
         .container {
             margin-top: 100px;
             width: 30%;
         }
+
         .mar {
             margin-left: 20px;
         }
@@ -43,17 +48,19 @@
 <div class="head">
     <p class="titile">Kingland Intern Project</p>
     <div class="container">
-        <form class="form-horizontal" action="/register" method="post"  id="form" onsubmit="return false">
+        <form class="form-horizontal" action="/register" method="post" id="form" onsubmit="return false">
             <div class="form-group">
                 <label for="username" class="col-sm-2 control-label">Username</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="username" placeholder="Username" name="username" required>
+                    <input type="text" class="form-control" id="username" placeholder="Username" name="username"
+                           required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="password" class="col-sm-2 control-label">Password</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+                    <input type="password" class="form-control" id="password" placeholder="Password" name="password"
+                           required>
                 </div>
             </div>
             <div class="form-group">
@@ -78,42 +85,44 @@
             if ($("#repeat").val() !== $("#password").val()) {
                 console.log("no problem");
                 $("#error").addClass("has-error");
-            }else {
+            } else {
                 $("#error").removeClass("has-error");
             }
         });
         $("#password").keyup(function () {
             if ($(this).val() !== $("#repeat").val()) {
                 $("#error").addClass("has-error");
-            }else {
+            } else {
                 $("#error").removeClass("has-error");
             }
         });
     })();
+
     function form2JsonString(formId) {
         var paramArray = $('#' + formId).serializeArray();
-        var user={};
-        $(paramArray).each(function(){
-            user[this.name]=this.value;
+        var userInfo = {};
+        $(paramArray).each(function () {
+            userInfo[this.name] = this.value;
         });
-        console.log(user);
-        return JSON.stringify(user);
+        console.log(userInfo);
+        return JSON.stringify(userInfo);
     }
+
     function login() {
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "http://localhost:8080/register" ,//url
+            url: "http://localhost:8080/register",//url
             data: form2JsonString('form'),
-            headers:{'Content-Type':'application/json;charset=utf8'},
+            headers: {'Content-Type': 'application/json;charset=utf8'},
             success: function (result) {
                 if (result.code == 200) {
                     // window.open("login","_self");
-                }else{
+                } else {
                     // alert(result.msg);
                 }
             },
-            error : function() {
+            error: function () {
                 alert("error！");
             }
         });

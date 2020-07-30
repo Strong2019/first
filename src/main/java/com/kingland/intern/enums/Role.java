@@ -18,13 +18,18 @@ public enum Role {
      * ADMIN permission
      * can visit all page
      */
-    ADMIN("ADMIN"),
+    ADMIN((long) 1, "ADMIN"),
 
     /**
      * COMMON permission
      * cannot visit admin page
      */
-    COMMON("COMMON");
+    COMMON((long) 2, "COMMON");
+
+    /**
+     * role id
+     */
+    private final Long id;
 
     /**
      * user role

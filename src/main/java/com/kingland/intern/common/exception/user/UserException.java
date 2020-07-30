@@ -9,15 +9,14 @@ import com.kingland.intern.common.exception.BaseException;
  * @author KSC
  * @description user info exception
  */
-public class UserException extends BaseException
-{
+public class UserException extends BaseException {
     /**
      * construction method
-     * @param code code
+     *
+     * @param code error code
      * @param args args
      */
-    public UserException(String code, Object[] args)
-    {
+    public UserException(String code, Object[] args) {
         super("user", code, args, null);
     }
 }

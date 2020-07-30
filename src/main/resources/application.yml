@@ -9,14 +9,6 @@ spring:
     username: postgres
     password: root
 
-  thymeleaf:
-    mode: HTML5
-    encoding: UTF-8
-    content-type: text/html
-    cache: false
-    prefix: classpath:/public/         #configure page file path
-    suffix: .html                      #configure the default page suffix
-
   flyway:
     enabled: true
     # disable clean database tables
@@ -26,6 +18,11 @@ spring:
     # use it with baseline-on-migrate: true
     baseline-version: 0
     locations: classpath:migration
+
+  # resources messages
+  messages:
+    # i18n resources file path
+    basename: i18n/messages
 
 # log configuration
 logging:
@@ -37,12 +34,12 @@ gen:
   # author
   author: KSC
   # default generate package name
-  packageName: com.kingland.dhrm2193
+  packageName: com.kingland.intern
   # auto remove table prefix
   autoRemovePre: true
   # table prefix
   tablePrefix: t_
 
 mybatis:
-  type-aliases-package: com.kingland.dhrm2193.domain
+  type-aliases-package: com.kingland.intern.domain
   mapper-locations: classpath:mybatis/*Mapper.xml

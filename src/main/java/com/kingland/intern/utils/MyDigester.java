@@ -5,6 +5,7 @@ package com.kingland.intern.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 /**
  * @author KSC
  * @description Helper for working with the MessageDigest API.
@@ -12,13 +13,20 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MyDigester {
 
+    /**
+     * algorithm: which algorithm encoding use
+     */
     private final String algorithm;
 
+    /**
+     * iterations: the number of times encoding is required
+     */
     private int iterations;
 
     /**
      * Create a new Digester.
-     * @param algorithm the digest algorithm; for example, "SHA-1" or "SHA-256".
+     *
+     * @param algorithm  the digest algorithm; for example, "SHA-1" or "SHA-256".
      * @param iterations the number of times to apply the digest algorithm to the input
      */
     public MyDigester(String algorithm, int iterations) {
@@ -30,6 +38,7 @@ public class MyDigester {
 
     /**
      * execute the digest
+     *
      * @param value value array
      * @return byte array
      */
@@ -43,10 +52,11 @@ public class MyDigester {
 
     /**
      * set iterations
+     *
      * @param iterations iterations
      */
     final void setIterations(int iterations) {
-        if(iterations <= 0) {
+        if (iterations <= 0) {
             throw new IllegalArgumentException("Iterations value must be greater than zero");
         }
         this.iterations = iterations;
@@ -54,14 +64,14 @@ public class MyDigester {
 
     /**
      * create digest with algorithm
+     *
      * @param algorithm algorithm
      * @return MessageDigest
      */
     private static MessageDigest createDigest(String algorithm) {
         try {
             return MessageDigest.getInstance(algorithm);
-        }
-        catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException("No such hashing algorithm", e);
         }
     }

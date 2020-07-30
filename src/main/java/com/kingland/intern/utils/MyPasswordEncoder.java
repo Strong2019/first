@@ -40,28 +40,29 @@ public class MyPasswordEncoder implements PasswordEncoder {
      */
     private MyDigester digester;
 
-    /**
-     * no parameter construction method
-     */
-    public MyPasswordEncoder() {
-        super();
-    }
-
-    /**
-     * The digest algorithm to use Supports the named
-     * <a href="http://java.sun.com/j2se/1.4.2/docs/guide/security/CryptoSpec.html#AppA">
-     * Message Digest Algorithms</a> in the Java environment.
-     *
-     * @param algorithm algorithm
-     * @param salt salt
-     */
-    public MyPasswordEncoder(String algorithm, String salt) {
-        this.salt = salt;
-        this.digester = new MyDigester(algorithm, 1);
-    }
+//    /**
+//     * no parameter construction method
+//     */
+//    public MyPasswordEncoder() {
+//        super();
+//    }
+//
+//    /**
+//     * The digest algorithm to use Supports the named
+//     * <a href="http://java.sun.com/j2se/1.4.2/docs/guide/security/CryptoSpec.html#AppA">
+//     * Message Digest Algorithms</a> in the Java environment.
+//     *
+//     * @param algorithm algorithm
+//     * @param salt salt
+//     */
+//    public MyPasswordEncoder(String algorithm, String salt) {
+//        this.salt = salt;
+//        this.digester = new MyDigester(algorithm, 1);
+//    }
 
     /**
      * Use SHA-1 by default
+     *
      * @param salt salt
      */
     public MyPasswordEncoder(String salt) {
@@ -69,13 +70,13 @@ public class MyPasswordEncoder implements PasswordEncoder {
         this.digester = new MyDigester(Common.SHA_1, 1);
     }
 
-    /**
-     * set encodeHashAsBase64
-     * @param encodeHashAsBase64 encode Hash As Base64
-     */
-    public void setEncodeHashAsBase64(boolean encodeHashAsBase64) {
-        this.encodeHashAsBase64 = encodeHashAsBase64;
-    }
+//    /**
+//     * set encodeHashAsBase64
+//     * @param encodeHashAsBase64 encode Hash As Base64
+//     */
+//    public void setEncodeHashAsBase64(boolean encodeHashAsBase64) {
+//        this.encodeHashAsBase64 = encodeHashAsBase64;
+//    }
 
     /**
      * Encodes the rawPass using a MessageDigest. If a salt is specified it will be merged
@@ -94,6 +95,7 @@ public class MyPasswordEncoder implements PasswordEncoder {
     /**
      * To encode a raw password with returning the pure password only, without salt being
      * added on top as the prefix
+     *
      * @param rawPassword raw password
      * @return
      */
@@ -103,8 +105,7 @@ public class MyPasswordEncoder implements PasswordEncoder {
     }
 
     /**
-     *
-     * @param salt salt
+     * @param salt        salt
      * @param rawPassword raw password
      * @return
      */
@@ -126,8 +127,7 @@ public class MyPasswordEncoder implements PasswordEncoder {
     private String encode(byte[] digest) {
         if (this.encodeHashAsBase64) {
             return Utf8.decode(Base64.getEncoder().encode(digest));
-        }
-        else {
+        } else {
             return new String(Hex.encode(digest));
         }
     }
@@ -136,7 +136,7 @@ public class MyPasswordEncoder implements PasswordEncoder {
      * Takes a previously encoded password and compares it with a raw password after mixing
      * in the salt and encoding that value
      *
-     * @param rawPassword plain text password
+     * @param rawPassword     plain text password
      * @param encodedPassword previously encoded password
      * @return true or false
      */
@@ -144,36 +144,10 @@ public class MyPasswordEncoder implements PasswordEncoder {
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         String encodePassword = "";
         // if raw password is not null
-        if(!Utils.isStringEmpty(String.valueOf(rawPassword), true)) {
+        if (!Utils.isStringEmpty(String.valueOf(rawPassword), true)) {
             //create password encoder
             encodePassword = this.encodePurePassword(String.valueOf(rawPassword));
         }
         return PasswordEncoderUtils.equals(encodedPassword, encodePassword);
     }
-
-    /**
-     * Sets the number of iterations for which the calculated hash value should be
-     * "stretched". If this is greater than one, the initial digest is calculated, the
-     * digest function will be called repeatedly on the result for the additional number
-     * of iterations.
-     *
-     * @param iterations the number of iterations which will be executed on the hashed
-     * password/salt value. Defaults to 1.
-     */
-//    public void setIterations(int iterations) {
-//        this.digester.setIterations(iterations);
-//    }
-
-//    @SuppressWarnings("unused")
-//    private String extractSalt(String prefixEncodedPassword) {
-//        int start = prefixEncodedPassword.indexOf(PREFIX);
-//        if(start != 0) {
-//            return "";
-//        }
-//        int end = prefixEncodedPassword.indexOf(SUFFIX, start);
-//        if(end < 0) {
-//            return "";
-//        }
-//        return prefixEncodedPassword.substring(start, end + 1);
-//    }
 }

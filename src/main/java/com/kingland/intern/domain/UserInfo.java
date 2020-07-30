@@ -4,6 +4,8 @@
 package com.kingland.intern.domain;
 
 import com.sun.istack.internal.NotNull;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,17 +20,20 @@ import javax.validation.constraints.Pattern;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+@ApiModel(value = "user info object", description = "user info object")
+public class UserInfo {
 
     /**
      * user id
      */
-    private int id;
+    @ApiModelProperty(value = "user id")
+    private Long userId;
 
     /**
      * user name
      */
     @NotNull
+    @ApiModelProperty(value = "user name")
     @Length(min = 4, max = 20, message = "length.not.valid")
     @Pattern(regexp = "^[0-9a-zA-Z]+$", message = "Only numeric and alphabetic can be entered")
     private String username;
@@ -37,19 +42,9 @@ public class User {
      * password
      */
     @NotNull
+    @ApiModelProperty(value = "user password")
     @Length(min = 6, max = 20, message = "length.not.valid")
     @Pattern(regexp = "^[0-9a-zA-Z]+$", message = "Only numeric and alphabetic can be entered")
     private String password;
 
-    /**
-     * role
-     */
-    @Length(max = 32, message = "length.less.valid")
-    private String role;
-
-    /**
-     * description
-     */
-    @Length(max = 128, message = "length.less.valid")
-    private String description;
 }

@@ -7,11 +7,11 @@ package com.kingland.intern.common.exception.user;
  * @author KSC
  * @description user does not exists or user password is incorrect
  */
-public class UserPasswordNotMatchException extends UserException
-{
-
-    public UserPasswordNotMatchException()
-    {
+public class UserPasswordNotMatchException extends UserException {
+    /**
+     * construction method
+     */
+    public UserPasswordNotMatchException() {
         super("user.password.not.match", null);
     }
 }

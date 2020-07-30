@@ -4,6 +4,8 @@
 package com.kingland.intern.config;
 
 import com.kingland.intern.common.Common;
+import com.kingland.intern.common.handler.FailureHandler;
+import com.kingland.intern.common.handler.SuccessHandler;
 import com.kingland.intern.utils.MyPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,12 +26,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userService;
 
     /**
+     * login success handler
+     */
+    private SuccessHandler successHandler;
+
+    /**
+     * login fail handler
+     */
+    private FailureHandler failureHandler;
+
+    /**
      * Injection by construction method
      *
-     * @param userService user Service
+     * @param userService    user Service
+     * @param successHandler login success handler
+     * @param failureHandler login fail handler
      */
-    public WebSecurityConfig(UserDetailsService userService) {
+    public WebSecurityConfig(UserDetailsService userService, SuccessHandler successHandler, FailureHandler failureHandler) {
         this.userService = userService;
+        this.successHandler = successHandler;
+        this.failureHandler = failureHandler;
     }
 
     /**
@@ -57,25 +73,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // Some resources of the website need to be authenticated
                 .antMatchers("/register.html").permitAll()
-                .antMatchers("/register").permitAll()
+                .antMatchers("/login.html").permitAll()
+                .antMatchers("/v1/register").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("*").permitAll()
                 // Only admin permission users are allowed to access the admin page
                 .antMatchers("/admin").hasRole("ADMIN")
                 // All requests except the above require authentication
                 .anyRequest().authenticated().and()
                 // Define the login page to go to when a user needs to log in
-                .formLogin().loginPage("/login").defaultSuccessUrl("/index.html").permitAll().and()
+                .formLogin().loginPage("/login").permitAll()
+                // how to response for success
+                .successHandler(successHandler)
+                // how to response for failure
+                .failureHandler(failureHandler)
+                .and()
                 // Defining logout operations
-                .logout().logoutSuccessUrl("/login").permitAll().and()
+                .logout().logoutSuccessUrl("/login?logout").permitAll().and()
                 // Disable CSRF, make post request can be accessed. otherwise it may cause some errors
-                .csrf().disable()
-        ;
+                .csrf().disable();
         // Disable cache
         httpSecurity.headers().cacheControl();
     }
-
 
 
     /**
@@ -89,4 +107,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Authentication through database
         auth.userDetailsService(userService).passwordEncoder(new MyPasswordEncoder(Common.SALT));
     }
+
+
 }

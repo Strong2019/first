@@ -4,14 +4,12 @@
 package com.kingland.intern.utils;
 
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * @author KSC
  * @description get i18n resources file
  */
-public class MessageUtils
-{
+public class MessageUtils {
     /**
      * get message by key-rgs and entrust it to spring messageSource
      *
@@ -19,9 +17,10 @@ public class MessageUtils
      * @param args args
      * @return get i18n translate
      */
-    public static String message(String code, Object... args)
-    {
+    public static String message(String code, Object... args) {
+        // get bean by spring utils
         MessageSource messageSource = SpringUtils.getBean(MessageSource.class);
-        return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
+        // return the message which obtained through i18n
+        return messageSource.getMessage(code, args, null);
     }
 }

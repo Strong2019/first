@@ -4,8 +4,6 @@
 package com.kingland.intern.utils;
 
 import com.kingland.intern.common.exception.user.UserPasswordNotMatchException;
-import com.kingland.intern.domain.User;
-import com.kingland.intern.enums.Role;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
@@ -17,7 +15,7 @@ public class Utils {
      * Judge whether the string is empty. If it is empty, throw an error message
      *
      * @param string string
-     * @param msg error message
+     * @param msg    error message
      * @throws UsernameNotFoundException username not found exception
      */
     public static void isNull(String string, String msg) throws UsernameNotFoundException {
@@ -39,16 +37,15 @@ public class Utils {
     }
 
 
-    public static boolean isNotNull(Object object)
-    {
+    public static boolean isNotNull(Object object) {
         return object != null;
     }
 
     /**
      * Check if String is not empty
      *
-     * @param str
-     * @param ignoreSpace
+     * @param str         string
+     * @param ignoreSpace whether ignore space
      * @return boolean
      */
     public static boolean isStringEmpty(String str, boolean ignoreSpace) {
@@ -65,15 +62,20 @@ public class Utils {
     }
 
     /**
-     * set the basic field for user register
+     * get message by i18n
      *
-     * @param user user
+     * @param code code
+     * @param args args
+     * @return i18n string
      */
-    public static void setUser(User user) {
-        // set user permissions
-        user.setRole(Role.COMMON.getRole());
-        // set user description
-        user.setDescription("Common user, the power of visiting home page");
-        // I can also set the created_time, create_user and other basic field information
+    public static String getMessage(String code, Object[] args) {
+        String message = null;
+        if (!Utils.isStringEmpty(code, true)) {
+            message = MessageUtils.message(code, args);
+        }
+        if (message == null) {
+            message = "";
+        }
+        return message;
     }
 }

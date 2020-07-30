@@ -7,10 +7,11 @@ package com.kingland.intern.common.exception.user;
  * @author KSC
  * @description unknown exception
  */
-public class UnknownException extends UserException
-{
-    public UnknownException()
-    {
+public class UnknownException extends UserException {
+    /**
+     * construction method
+     */
+    public UnknownException() {
         super("user.unknown.error", null);
     }
 }

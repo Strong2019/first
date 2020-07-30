@@ -13,8 +13,9 @@ public class PasswordEncoderUtils {
 
     /**
      * Constant time comparison to prevent against timing attacks.
+     *
      * @param expected the password which in database
-     * @param actual the password which user input
+     * @param actual   the password which user input
      * @return true or false
      */
     static boolean equals(String expected, String actual) {
@@ -32,6 +33,12 @@ public class PasswordEncoderUtils {
         return result == 0;
     }
 
+    /**
+     * encode it to utf8
+     *
+     * @param s string
+     * @return byte array
+     */
     private static byte[] bytesUtf8(String s) {
         if (s == null) {
             return new byte[0];

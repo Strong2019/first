@@ -57,12 +57,12 @@
         </filter>
     </appender>
 
-    <!-- user visit log output  -->
-    <appender name="sys-user" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/sys-user.log</file>
+    <!-- userInfo visit log output  -->
+    <appender name="sys-userInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-userInfo.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollback daily -->
-            <fileNamePattern>${log.path}/sys-user.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}/sys-userInfo.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- log max history 60 days -->
             <maxHistory>60</maxHistory>
         </rollingPolicy>
@@ -86,8 +86,8 @@
         <appender-ref ref="file_error"/>
     </root>
 
-    <!--  system user operate log  -->
-    <logger name="sys-user" level="info">
-        <appender-ref ref="sys-user"/>
+    <!--  system userInfo operate log  -->
+    <logger name="sys-userInfo" level="info">
+        <appender-ref ref="sys-userInfo"/>
     </logger>
 </configuration>

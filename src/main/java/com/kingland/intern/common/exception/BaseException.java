@@ -3,15 +3,15 @@
  */
 package com.kingland.intern.common.exception;
 
-import com.kingland.intern.utils.MessageUtils;
 import com.kingland.intern.utils.Utils;
+import lombok.Data;
 
 /**
  * @author KSC
  * @description base exception
  */
-public class BaseException extends RuntimeException
-{
+@Data
+public class BaseException extends RuntimeException {
     /**
      * in which module
      */
@@ -32,66 +32,28 @@ public class BaseException extends RuntimeException
      */
     private String defaultMessage;
 
-    public BaseException(String module, String code, Object[] args, String defaultMessage)
-    {
+    /**
+     * construction method
+     *
+     * @param module         Which module is the exception generated in
+     * @param code           error code
+     * @param args           args
+     * @param defaultMessage default message
+     */
+    public BaseException(String module, String code, Object[] args, String defaultMessage) {
         this.module = module;
         this.code = code;
         this.args = args;
         this.defaultMessage = defaultMessage;
     }
 
-    public BaseException(String module, String code, Object[] args)
-    {
-        this(module, code, args, null);
-    }
-
-    public BaseException(String module, String defaultMessage)
-    {
-        this(module, null, null, defaultMessage);
-    }
-
-    public BaseException(String code, Object[] args)
-    {
-        this(null, code, args, null);
-    }
-
-    public BaseException(String defaultMessage)
-    {
-        this(null, null, null, defaultMessage);
-    }
-
+    /**
+     * to get i18n message by code
+     *
+     * @return message string
+     */
     @Override
-    public String getMessage()
-    {
-        String message = null;
-        if (!Utils.isStringEmpty(code,true))
-        {
-            message = MessageUtils.message(code, args);
-        }
-        if (message == null)
-        {
-            message = defaultMessage;
-        }
-        return message;
-    }
-
-    public String getModule()
-    {
-        return module;
-    }
-
-    public String getCode()
-    {
-        return code;
-    }
-
-    public Object[] getArgs()
-    {
-        return args;
-    }
-
-    public String getDefaultMessage()
-    {
-        return defaultMessage;
+    public String getMessage() {
+        return Utils.getMessage(code, args);
     }
 }
