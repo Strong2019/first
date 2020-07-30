@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>index</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="icon" type="image/png" href="https://www.kingland.com/hubfs/Globe.png"/>
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            background-color: #1fc8db;
+            background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+            opacity: 0.95;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: #f3f3f3;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${#httpServletRequest.getContextPath()}">INDEX</h1>
+<br/>Hello ：<a sec:authentication="name"></a>
+
+<a th:href="@{/index}"> INDEX</a>
+<a th:href="@{/admin}"> | ADMIN</a>
+<a th:href="@{/hello}"> | HELLO</a>
+<br/>
+<hr/>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" class="btn btn-primary" value="logout"/>
+</form>
+
+
+</body>
+</html>

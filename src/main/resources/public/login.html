@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kingland Intern Project</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="https://www.kingland.com/hubfs/Globe.png"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 150px;
+            width: 100%;
+            background-color: #1fc8db;
+            background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+            opacity: 0.95;
+            text-align: center;
+            margin: auto;
+            color: #f3f3f3;
+        }
+
+        .head {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .titile {
+            font-size: 64px;
+            line-height: 250px;
+        }
+
+        .container {
+            margin-top: 100px;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+<div class="head">
+    <p class="titile">Kingland Intern Project</p>
+    <p th:if="${param.logout}" class="bg-warning" th:text="${param.logout}"></p>
+    <div class="container">
+        <form class="form-horizontal" action="./login" method="post">
+            <div class="form-group">
+                <label for="username" class="col-sm-2 control-label">Username</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="username" placeholder="Username" name="username"
+                           required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="password" placeholder="Password" name="password"
+                           required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <a href="/register" class="btn btn-success">Sign up</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+    id 'org.flywaydb.flyway' version '6.5.2'
+}
+
+group = 'com.kingland'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.3'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.springframework.security:spring-security-test'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+    compile group: 'org.flywaydb', name: 'flyway-core', version: '6.5.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Flyway Plugin
+apply plugin: 'org.flywaydb.flyway'
+flyway {
+    user = 'postgres'
+    password = 'root'
+    url = 'jdbc:postgresql://127.0.0.1:5432/intern'
+    schemas = ['intern']
+}
