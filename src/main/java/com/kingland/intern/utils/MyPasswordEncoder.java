@@ -40,26 +40,6 @@ public class MyPasswordEncoder implements PasswordEncoder {
      */
     private MyDigester digester;
 
-//    /**
-//     * no parameter construction method
-//     */
-//    public MyPasswordEncoder() {
-//        super();
-//    }
-//
-//    /**
-//     * The digest algorithm to use Supports the named
-//     * <a href="http://java.sun.com/j2se/1.4.2/docs/guide/security/CryptoSpec.html#AppA">
-//     * Message Digest Algorithms</a> in the Java environment.
-//     *
-//     * @param algorithm algorithm
-//     * @param salt salt
-//     */
-//    public MyPasswordEncoder(String algorithm, String salt) {
-//        this.salt = salt;
-//        this.digester = new MyDigester(algorithm, 1);
-//    }
-
     /**
      * Use SHA-1 by default
      *
@@ -69,14 +49,6 @@ public class MyPasswordEncoder implements PasswordEncoder {
         this.salt = salt;
         this.digester = new MyDigester(Common.SHA_1, 1);
     }
-
-//    /**
-//     * set encodeHashAsBase64
-//     * @param encodeHashAsBase64 encode Hash As Base64
-//     */
-//    public void setEncodeHashAsBase64(boolean encodeHashAsBase64) {
-//        this.encodeHashAsBase64 = encodeHashAsBase64;
-//    }
 
     /**
      * Encodes the rawPass using a MessageDigest. If a salt is specified it will be merged
