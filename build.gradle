@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
-    id 'org.flywaydb.flyway' version '6.5.2'
+    id 'org.flywaydb.flyway' version '6.5.3'
 }
 
 group = 'com.kingland'
@@ -31,7 +31,7 @@ dependencies {
     }
     testImplementation 'org.springframework.security:spring-security-test'
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
-    compile group: 'org.flywaydb', name: 'flyway-core', version: '6.5.2'
+    compile group: 'org.flywaydb', name: 'flyway-core', version: '6.5.3'
 }
 
 test {
